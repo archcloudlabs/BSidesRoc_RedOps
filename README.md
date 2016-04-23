@@ -2,5 +2,4 @@
 RedOps: Scaling &amp; Automating your pwnage!
 
 ### Ansible_Examples
-#### pull_and_run.yml
-Ansible playbook that demonstrats pulling from remote sites and creating cron jobs.
+[This folder](https://github.com/jaredestroud/BSidesRoc_RedOps/tree/master/Ansible_Example) contains examples of potentially useful Ansible playbooks in CTF and red teaming events.
