@@ -1,0 +1,29 @@
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
+{##
+  Import defaults from defaults.yml
+##}
+{% import_yaml slspath ~ '/defaults.yml' as default_settings %}
+{## 
+  Setup variable using grains['osrelease'] based logic, only add 
+  key:values here that differ from whats in defaults.yml
+##}
+{% set osrelease_map = salt['grains.filter_by']({
+    '2012Server': {},
+    '2008ServerR2': {},
+  }
+  , grain='osrelease')
+%}
+{##
+  Merge the osrelease_map into the default_settings 
+##}
+{% do default_settings.rdp.update(osrelease_map) %}
+{##
+  Merge in the rdp pillar
+##}
+{% set rdp = salt['pillar.get'](
+    'rdp',
+    default=default_settings.rdp,
+    merge=True
+  )
+%}
