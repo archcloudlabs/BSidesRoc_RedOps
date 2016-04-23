@@ -1,0 +1,11 @@
+---
+- hosts: www # Specify from inventory file.
+  remote_user: root
+
+  tasks:
+      - name: That cool bash script I have.
+        shell: thing_to_do_here
+
+        # Run that ODB (old dirty bash script)
+      - name: Run that dirty bash script remotely.
+      - script: /some/local/script.sh --some-arguments 1234
